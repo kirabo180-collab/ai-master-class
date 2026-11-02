@@ -1,0 +1,216 @@
+import csv
+import io
+
+csv_data = """day,steps,protocol
+Monday,9200,OMAD
+Tuesday,7500,2MAD
+Wednesday,10500,OMAD
+Thursday,4200,OMAD
+Friday,8800,Autophagy Marathon
+Saturday,11000,2MAD
+Sunday,9600,OMAD"""
+
+f = io.StringIO(csv_data)
+reader = csv.DictReader(f)
+
+valid_steps = []
+for row in reader:
+    steps = int(row["steps"])
+    if steps >= 7000:
+        valid_steps.append(steps)
+        print(f"{row['day']}: {steps} steps ({row['protocol']})")
+    else:
+        print(f"{row['day']}: {steps} steps - flagged as invalid")
+    avg = sum(valid_steps) / len(valid_steps)
+print(f"\nAverage (valid days): {round(avg)} steps")    
+import csv, io
+
+harvest_csv = """field,crop,bags_harvested,target_bags
+North Plot,Maize,48,50
+South Plot,Beans,22,30
+East Plot,Wheat,61,55
+West Plot,Maize,35,50
+Centre Plot,Sorghum,44,40
+"""
+
+reader = csv.DictReader(io.StringIO(harvest_csv))
+
+print(f"{'Field':<15} {'Crop':<10} {'Harvested':>10} {'Target':>8} {'Status':>12}")
+print("-" * 58)
+
+for row in reader:
+    harvested = int(row["bags_harvested"])
+    target = int(row["target_bags"])
+    pct = (harvested / target) * 100
+    status = "On target" if harvested >= target else f"Short by {target - harvested} bags"
+    print(f"{row['field']:<15} {row['crop']:<10} {harvested:>10} {target:>8} {status:>12}")
+data = """name,score1,score2,score3
+James Omondi,85,90,78
+Sandra Weru,72,,88
+Patrick Njiru,91,87,94
+Grace Achieng,60,bad data,70
+Brian Kamau,55,48,62"""
+import csv
+import io
+
+csv_data = """name,score1,score2,score3
+James Omondi,85,90,78
+Sandra Weru,72,,88
+Patrick Njiru,91,87,94
+Grace Achieng,60,bad data,70
+Brian Kamau,55,48,62"""
+
+f = io.StringIO(csv_data)
+reader = csv.DictReader(f)
+
+for row in reader:
+    print(dict(row))    
+def parse_score(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
+# Test
+print(parse_score("85"))
+print(parse_score(""))
+print(parse_score("bad data"))
+print(parse_score(None))
+def calculate_average(scores):
+    valid = [s for s in scores if s is not None]
+    if not valid:
+        return None
+    return round(sum(valid) / len(valid), 1)
+
+def letter_grade(avg):
+    if avg is None:
+        return "N/A"
+    if avg >= 90:
+        return "A"
+    elif avg >= 80:
+        return "B"
+    elif avg >= 70:
+        return "C"
+    elif avg >= 60:
+        return "D"
+    else:
+        return "F"
+
+# Test
+scores_a = [85, 90, 78]
+scores_b = [72, None, 88]
+scores_c = [60, None, None]
+
+for s in [scores_a, scores_b, scores_c]:
+    avg = calculate_average(s)
+    print(f"Scores: {s} | Avg: {avg} | Grade: {letter_grade(avg)}")
+import csv
+import io
+import json
+
+csv_data = """name,score1,score2,score3
+James Omondi,85,90,78
+Sandra Weru,72,,88
+Patrick Njiru,91,87,94
+Grace Achieng,60,bad data,70
+Brian Kamau,55,48,62"""
+
+# Functions
+def parse_score(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
+def calculate_average(scores):
+    valid = [s for s in scores if s is not None]
+    if not valid:
+        return None
+    return round(sum(valid) / len(valid), 1)
+
+def letter_grade(avg):
+    if avg is None: return "N/A"
+    if avg >= 90:   return "A"
+    elif avg >= 80: return "B"
+    elif avg >= 70: return "C"
+    elif avg >= 60: return "D"
+    else:           return "F"
+
+# Process CSV
+f = io.StringIO(csv_data)
+reader = csv.DictReader(f)
+results = []
+
+print("=" * 50)
+print(f"{'NAME':<20} {'AVG':>5}  {'GRADE':>5}  NOTES")
+print("=" * 50)
+
+for row in reader:
+    scores = [
+        parse_score(row["score1"]),
+        parse_score(row["score2"]),
+        parse_score(row["score3"])
+    ]
+    invalid_count = scores.count(None)
+    avg = calculate_average(scores)
+    grade = letter_grade(avg)
+    notes = f"{invalid_count} invalid score(s)" if invalid_count else "All scores valid"
+
+    print(f"{row['name']:<20} {str(avg):>5}  {grade:>5}  {notes}")
+
+    results.append({
+        "name": row["name"],
+        "scores": [row["score1"], row["score2"], row["score3"]],
+        "average": avg,
+        "grade": grade
+    })
+
+print("=" * 50)
+
+# Class summary
+valid_avgs = [r["average"] for r in results if r["average"] is not None]
+class_avg = round(sum(valid_avgs) / len(valid_avgs), 1)
+print(f"\nClass average: {class_avg}")
+print(f"Students: {len(results)}")
+
+# Export as JSON
+print("\nJSON export:")
+print(json.dumps(results, indent=2))    
+import csv
+import io
+
+csv_data = """name,steps,water,protocol,cold_shower
+James Omondi,9200,8,OMAD,True
+Sandra Weru,10500,9,2MAD,True
+Patrick Njiru,7600,6,OMAD,False
+Grace Achieng,11000,8,Autophagy Marathon,True"""
+
+f = io.StringIO(csv_data)
+reader = csv.DictReader(f)
+
+for row in reader:
+    steps = int(row["steps"])
+    status = "Goal hit" if steps >= 8000 else "Below goal"
+    print(f"{row['name']}: {steps} steps | {row['protocol']} | {status}")
+import csv
+import io
+
+output = io.StringIO()
+writer = csv.writer(output)
+
+# Write header
+writer.writerow(["name", "steps", "protocol", "goal_hit"])
+
+# Write data rows
+data = [
+    ["James",   9200,  "OMAD",              True],
+    ["Sandra",  10500, "2MAD",              True],
+    ["Patrick", 7600,  "OMAD",              False],
+    ["Grace",   11000, "Autophagy Marathon", True],
+]
+
+for row in data:
+    writer.writerow(row)
+
+print("Generated CSV:")
+print(output.getvalue())    

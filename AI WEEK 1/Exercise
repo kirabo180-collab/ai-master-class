@@ -1,0 +1,36 @@
+steps = [8200, 5100, 11300, 6800, 9400, 4200, 10100]
+target = 8000
+
+# 1. Print each day's steps and whether it hit the target
+print("Daily Step Report:")
+for day, count in enumerate(steps, start=1):
+    if count >= target:
+        print(f"Day {day}: {count} steps - Target HIT")
+    else:
+        print(f"Day {day}: {count} steps - Target MISSED")
+
+# 2. Calculate weekly average, skipping days below 5000
+total_steps = 0
+valid_days = 0
+
+for count in steps:
+    if count < 5000:
+        continue
+    total_steps += count
+    valid_days += 1
+
+average_steps = total_steps / valid_days
+
+# 3. Count consecutive target-hitting days from the start
+streak = 0
+i = 0
+
+while i < len(steps) and steps[i] >= target:
+    streak += 1
+    i += 1
+
+# Final weekly summary
+print("\nWeekly Summary:")
+print(f"Total valid days: {valid_days}")
+print(f"Average steps: {average_steps:.2f}")
+print(f"Consecutive streak count: {streak}")

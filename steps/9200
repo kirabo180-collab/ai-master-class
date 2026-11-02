@@ -1,0 +1,49 @@
+steps = 9200
+water_glasses = 8
+fasting = True
+name = "Amerix student"
+print(steps)
+print(water_glasses)
+print(fasting)
+print(name)
+# int
+steps = 9200
+# float
+body_weight_kg = 82.5
+# str
+skill_of_the_day = "welding"
+# bool
+cold_shower = True
+print("Steps today", steps)
+print("Body weight", body_weight_kg, "kg")
+print("Skill:", skill_of_the_day)
+print("Cold shower done:", cold_shower)
+steps = 9200
+body_weight = 82.5
+skill = "Tiling"
+cold_shower = True
+print(type(steps))
+print(type(body_weight))
+print(type(skill))
+print(type(cold_shower))
+steps = 9200
+water_glasses = 8
+skill = "Upholstery" 
+cold_shower = True
+print(f"Steps: {steps}")
+print(f"Water: {water_glasses} glasses")
+print(f"Skill of the day: {skill}")
+print(f"Cold shower: {cold_shower}")
+print(f"You walked {steps} steps and drank {water_glasses} glasses of water.")
+steps =7200
+print("Morning count:", steps)
+steps = 9400 # update the variable
+print("End of day:", steps)
+steps = steps + 600 # add 600 to the current value
+print("After evening walk:", steps)
+print(type(steps_as_string)) #<class 'str'>
+print(type(steps_as_int)) #<class 'int'>
+# You can do maths with it
+target = 10000
+gap = target - steps_as_int
+print(f"You need {gap} more steps to hit your target.")
